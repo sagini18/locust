@@ -15,13 +15,13 @@ let data = [
   { id: 3, name: "Bob Johnson", age: 35 },
 ];
 
-// GET all items
-app.get("/items", (req, res) => {
+// GET all users
+app.get("/api/users", (req, res) => {
   res.json(data);
 });
 
 // GET a single item by ID
-app.get("/items/:id", (req, res) => {
+app.get("/api/users/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const item = data.find((item) => item.id === id);
   if (item) {
@@ -32,7 +32,7 @@ app.get("/items/:id", (req, res) => {
 });
 
 // POST a new item
-app.post("/items", (req, res) => {
+app.post("/api/users", (req, res) => {
   const newItem = req.body;
   newItem.id = data.length + 1;
   data.push(newItem);
@@ -40,7 +40,7 @@ app.post("/items", (req, res) => {
 });
 
 // PUT (update) an existing item by ID
-app.put("/items/:id", (req, res) => {
+app.put("/api/users/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const updatedItem = req.body;
   if (updatedItem.id) {
@@ -52,7 +52,6 @@ app.put("/items/:id", (req, res) => {
   const index = data.findIndex((item) => item.id === id);
   if (index !== -1) {
     data[index] = { ...data[index], ...updatedItem };
-    console.log(data);
     res.json(data[index]);
   } else {
     res.status(404).json({ error: "Item not found" });
@@ -60,7 +59,7 @@ app.put("/items/:id", (req, res) => {
 });
 
 // DELETE an item by ID
-app.delete("/items/:id", (req, res) => {
+app.delete("/api/users/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const index = data.findIndex((item) => item.id === id);
   if (index !== -1) {
